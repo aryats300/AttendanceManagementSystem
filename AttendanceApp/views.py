@@ -47,12 +47,15 @@ def upload_csv(request):
                         check_out = datetime.datetime.strptime(item['Check-out'], '%m/%d/%Y %I:%M %p')
                     # else:
                     #     check_out = None
-                    attendance = PunchAttendance(
-                        employee_id=employee_id,
-                        check_in=check_in,
-                        check_out=check_out
-                    )
-                    attendance.save()
+                    existing_attendance = PunchAttendance.objects.filter(check_in=check_in).first()
+                    if not existing_attendance:
+                    # if check_in not in PunchAttendance:
+                        attendance = PunchAttendance(
+                            employee_id=employee_id,
+                            check_in=check_in,
+                            check_out=check_out
+                        )
+                        attendance.save()
             
             json_data = json.dumps(data, indent=2)
             # print('json data',json_data)
@@ -97,16 +100,18 @@ def success(request):
                 hours_difference = None
                 status = None
             
-            attendance = Attendance(
-                employee_id=employee_id,
-                year=year,
-                month=month,
-                date=day,
-            
-                attendance=status,
-                # work_hours=hours_difference
-            )
-            attendance.save()
+            existing_attendance = Attendance.objects.filter(employee_id=employee_id, year=year, month=month, date=day).first()
+            if existing_attendance:
+                attendance = Attendance(
+                    employee_id=employee_id,
+                    year=year,
+                    month=month,
+                    date=day,
+                
+                    attendance=status,
+                    # work_hours=hours_difference
+                )
+                attendance.save()
             print("attendance:",attendance)
 
 
