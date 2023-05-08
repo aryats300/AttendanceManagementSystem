@@ -1,0 +1,56 @@
+<!-- <table>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>January 1, 2023</th>
+        <th>January 2, 2023</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in attendance_data %}
+      <tr>
+        <td>{{ data.employee_id }}</td>
+        <td>{% if data.January_1_2023 %}True{% else %}False{% endif %}
+        </td>
+        <td>{% if data.January_1_2023 %}True{% else %}False{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table> -->
+  
+
+   <!-- <table>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>January 1, 2023</th>
+        <th>January 2, 2023</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LIV23021</td>
+        <td>{{ attendance_table.LIV23021.1|default_if_none:"-" }}</td>
+        <td>{{ attendance_table.LIV23021.2|default_if_none:"-" }}</td>
+      </tr>
+      <tr>
+        <td>LIV23022</td>
+        <td>{{ attendance_table.LIV23022.1|default_if_none:"-" }}</td>
+        <td>{{ attendance_table.LIV23022.2|default_if_none:"-" }}</td>
+      </tr>
+      <tr>
+        <td>LIV23023</td>
+        <td>{{ attendance_table.LIV23023.1|default_if_none:"-" }}</td>
+        <td>{{ attendance_table.LIV23023.2|default_if_none:"-" }}</td>
+      </tr>
+    </tbody>
+  </table>
+   -->
+
+
+
+   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
