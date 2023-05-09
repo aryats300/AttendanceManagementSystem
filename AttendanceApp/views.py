@@ -82,13 +82,13 @@ def success(request):
                 day=check_in.day
                 year=check_in.year
                 checkin_time=check_in
-            # else:
-            #     check_in = None
+            else:
+                status = '0'
             if row["Check-out"]:
                 check_out=datetime.datetime.strptime(row["Check-out"],'%m/%d/%Y %I:%M %p')
                 checkout_time=check_out
-            # else:
-            #     check_out = None
+            else:
+                status = '0'
             if check_in and check_out:
                 time_difference=check_out - check_in
                 hours_difference=time_difference.total_seconds() / 3600.0
@@ -97,11 +97,11 @@ def success(request):
                 else:
                     status = '0'
             else:
-                hours_difference = None
-                status = None
+                hours_difference = 0
+                status = '0'
             
             existing_attendance = Attendance.objects.filter(employee_id=employee_id, year=year, month=month, date=day).first()
-            if existing_attendance:
+            if not existing_attendance:
                 attendance = Attendance(
                     employee_id=employee_id,
                     year=year,
@@ -112,13 +112,13 @@ def success(request):
                     # work_hours=hours_difference
                 )
                 attendance.save()
-            print("attendance:",attendance)
+                print("attendance:",attendance)
 
 
     data = list(Attendance.objects.all().values())
     json_data = json.dumps(data)
-    
-    return HttpResponse(json_data)
-       
 
-    
+    return HttpResponse(json_data)
+        
+
+
