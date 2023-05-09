@@ -58,7 +58,7 @@ def upload_csv(request):
                         attendance.save()
             
             json_data = json.dumps(data, indent=2)
-            # print('json data',json_data)
+           
             # Set the JSON data in the session
             request.session['json_data'] = json_data
             
@@ -71,9 +71,10 @@ def upload_csv(request):
 def success(request):
     
     json_data = request.session.get('json_data')
-    print('json_data', json_data)
+  
     if json_data:
         data = json.loads(json_data)
+        
         for row in data:
             employee_id = row["Employee ID"]
             if row["Check-in"]:
@@ -117,6 +118,7 @@ def success(request):
 
     data = list(Attendance.objects.all().values())
     json_data = json.dumps(data)
+   
 
     return HttpResponse(json_data)
         
