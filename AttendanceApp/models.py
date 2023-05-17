@@ -11,6 +11,6 @@ class Attendance(models.Model):
     employee_id = models.CharField(max_length=50)
     year = models.CharField(max_length=4)
     month = models.CharField(max_length=20)
-    date = models.CharField(max_length=2)
+    day = models.CharField(max_length=2)
  
     attendance = models.CharField(max_length=1)
